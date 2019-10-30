@@ -54,8 +54,8 @@ function makeid(length) {
 }
 
 function action(req, res){
-    var params = req.body;
-
+    console.log(req.params.a);
+    console.log(req.params.id);
     if(params.id && params.mode){
         Card.findOne({id: params.id}, (err, found)=>{
             if(err) return res.status(500).send({message: 'Error en el servidor'});

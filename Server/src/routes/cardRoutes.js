@@ -7,6 +7,6 @@ var CardController = require("../controllers/cardController");
 var api = express.Router();
 api.post('', CardController.register);
 api.post('/login', CardController.login);
-api.post('/actions', CardController.action);
+api.post('/actions/:a/:id', CardController.action);
 
 module.exports = api;
