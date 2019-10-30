@@ -15,7 +15,7 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
-LiquidCrystal_I2C lcd(0x26, 16, 2);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance.
 
 int mode = 0;
@@ -96,30 +96,31 @@ void health() {
 String uuidFinal = "";
 
 void loop() {
-//  if (millis() - last_time1 > 1000) {
-//    if (lcd_state) {
-//      lcd.clear();
-//      last_time1 = millis();
-//    } else {
-//      lcd.print("PRESION UN BOTON");
-//      last_time1 = millis();
-//      lcd_state = !lcd_state;
-//    }
-//  }
-//
-//  digitalRead(but1);
-//  if (but1 == HIGH) {
-//    theft();
-//  }
-//
-//  digitalRead(but2);
-//  if (but2 == HIGH) {
-//    lost();
-//  }
-//
-//  digitalRead(but3);
-//  if (but3 == HIGH) {
-//    health();
+  if (millis() - last_time1 > 1000) {
+    if (lcd_state) {
+      lcd.clear();
+      last_time1 = millis();
+    } else {
+      lcd.print("PRESION UN BOTON");
+      last_time1 = millis();
+    }
+      lcd_state = !lcd_state;
+
+  }
+
+  digitalRead(but1);
+  if (but1 == HIGH) {
+    theft();
+  }
+
+  digitalRead(but2);
+  if (but2 == HIGH) {
+    lost();
+  }
+
+  digitalRead(but3);
+  if (but3 == HIGH) {
+    health();
 
     if (mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()) {
 
@@ -135,9 +136,9 @@ void loop() {
         }
 
 //        uuidFinal += mfrc522.uid.uidByte[i];
-        if  ((BIN)mfrc522.uid.uidByte[i] ==11011 1100101 100001 11011){
+//        if  ((BIN)mfrc522.uid.uidByte[i] ==11011 1100101 100001 11011){
 
-        Serial.print(1);}
+        Serial.print(mfrc522.uid.uidByte[i], HEX);
       }
 
       Serial.println();
@@ -148,5 +149,5 @@ void loop() {
       delay(1000);
     }
 //  }
-
+  }
 }
